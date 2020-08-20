@@ -10,4 +10,8 @@ Route::get('/cart', 'CartController@cart');
 Route::get('/order', 'OrderController@order');
 
 
-Route::post('/cart/add/{id}', 'CartController@cartAdd')->name('cart-add');
+Route::post('/cart/add', 'CartController@cartAdd');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

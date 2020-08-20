@@ -34,6 +34,18 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+ <!-- Scripts -->
+ <script src="{{ asset('js/app.js') }}" defer></script>
+
+<!-- Fonts -->
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+<!-- Styles -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body class="animsition">
 
@@ -56,7 +68,6 @@
 
 				<div class="topbar-child2">
 					<span class="topbar-email">
-						fashe@example.com
 					</span>
 
 					<div class="topbar-language rs1-select2">
@@ -602,6 +613,8 @@
 
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+	@yield('custom_js')
 
 </body>
 </html>

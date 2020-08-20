@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class AddColomnOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->tinyInteger('status')->default(0);
-            $table->string('name')->nullable(); 
-            $table->string('number')->nullable(); 
-            $table->timestamps();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('number');
+            $table->string('product_count')->after('user_id');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('name');
+        //
     }
 }

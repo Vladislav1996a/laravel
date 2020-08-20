@@ -198,12 +198,11 @@
 
 										<div class="block2-btn-addcart w-size1 trans-0-4">
 											<!-- Button -->
-											<form action="{{ route('cart-add', $product) }}" method='POST'>
-												<button type='submit'  class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+										
+												<button type='button'  data-id='{{$product->id}}' onclick="dataCard(this)"  class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
 													Add to Cart
 												</button>
 												@csrf
-											</form>
 											
 										</div>
 									</div>
@@ -233,4 +232,8 @@
 		</div>
 	</section>
 
+@endsection
+
+@section('custom_js')
+	<script src="js/ajax/dataProduct.js"></script>
 @endsection

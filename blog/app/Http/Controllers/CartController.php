@@ -12,12 +12,21 @@ class CartController extends Controller
         return view('cart');
     }
 
-    public function cartAdd($productId){
-        $orderId = session('$orderId');
-        if(is_null($orderId)){
-            $orderId = Order::create()->id;
-            session(['orderId' => $orderId]);
-        }
-        dump($orderId);
+       public function cartAdd(Request $request){
+
+        $productId = $request['productId'];
+
+
+        $order = new Order();
+        $order->name = $productId;
+
+        $order->save();
+
+        //  получить user_id
+    // найти jrder по user_id и по status==0
+    // если такого order  нет то создать
+    // поискать order_product по  order_id и product_id
+    // если такого order_product - нет то мы его создаем
     }
 }
+
