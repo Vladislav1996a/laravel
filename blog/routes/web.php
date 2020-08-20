@@ -1,7 +1,7 @@
 <?php
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/page', 'indexController@dom');
 
 Route::get('/product', 'ProductController@product');
 

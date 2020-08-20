@@ -37,7 +37,6 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
  <!-- Scripts -->
- <script src="{{ asset('js/app.js') }}" defer></script>
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -67,15 +66,43 @@
 				</span>
 
 				<div class="topbar-child2">
-					<span class="topbar-email">
-					</span>
+					<div class="topbar-email d-flex">
+							@guest
+								<li class="nav-item">
+									<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+								</li>
+								@if (Route::has('register'))
+									<li class="nav-item">
+										<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+									</li>
+								@endif
+							@else
+								<li class="nav-item dropdown">
+									<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+										{{ Auth::user()->name }} <span class="caret"></span>
+									</a>
 
-					<div class="topbar-language rs1-select2">
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="{{ route('logout') }}"
+										onclick="event.preventDefault();
+														document.getElementById('logout-form').submit();">
+											{{ __('Logout') }}
+										</a>
+
+										<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+											@csrf
+										</form>
+									</div>
+								</li>
+							@endguest
+					</div>
+
+					<!-- <div class="topbar-language rs1-select2">
 						<select class="selection-1" name="time">
 							<option>USD</option>
 							<option>EUR</option>
 						</select>
-					</div>
+					</div> -->
 				</div>
 			</div>
 
@@ -90,7 +117,7 @@
 					<nav class="menu">
 						<ul class="main_menu">
 							<li>
-								<a href="/">Home</a>
+								<a href="/page">Home</a>
 								<ul class="sub_menu">
 									<li><a href="index.html">Homepage V1</a></li>
 									<li><a href="home-02.html">Homepage V2</a></li>
@@ -123,11 +150,11 @@
 
 				<!-- Header Icon -->
 				<div class="header-icons">
-					<a href="#" class="header-wrapicon1 dis-block">
+					<!-- <a href="#" class="header-wrapicon1 dis-block">
 						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
+					</a> -->
 
-					<span class="linedivide1"></span>
+					<!-- <span class="linedivide1"></span> -->
 
 					<div class="header-wrapicon2">
 						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
