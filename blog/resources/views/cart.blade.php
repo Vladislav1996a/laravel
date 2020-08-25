@@ -23,147 +23,176 @@
 							<th class="column-2">Product</th>
 							<th class="column-3">Price</th>
 							<th class="column-4 p-l-70">Quantity</th>
-							<!-- <th class="column-5">Total</th> -->
 						</tr>
 
-                        	@if(!is_null($user_id))
-								@foreach($orderProduct as $product)
-									@if($user_id->id == $product->order_id)
-										<tr class="table-row">
-											<td class="column-1">
-												<div class="cart-img-product b-rad-4 o-f-hidden">
-													<img src="images/item-05.jpg" alt="IMG-PRODUCT">
-												</div>
-											</td>
-											<td class="column-2">{{$product->title}}</td>
-											<td class="column-3">${{$product->price}}</td>
-											<td class="column-4">
-												<div class="flex-w bo5 of-hidden w-size17">
-													<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-														<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-													</button>
+						@if(!is_null($user_id))
+							@foreach($orderProduct as $product)
+								@if($user_id->id == $product->order_id)
+									<tr class="table-row">
+										<td class="column-1">
+											<div class="cart-img-product b-rad-4 o-f-hidden" type='button' onclick='deleteProduct(this)' data-id='{{$product->id_order_prod}}'>
+												<img src="images/item-05.jpg" alt="IMG-PRODUCT">
+											</div>
+											@csrf
+										</td>
+										<td class="column-2">{{$product->title}}</td>
+										<td class="column-3 price">${{$product->price}}</td>
+										<td class="column-4">
+											<div class="flex-w bo5 of-hidden w-size17">
+												<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+													<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+												</button>
 
-													<input class="size8 m-text18 t-center num-product" type="number" name="num-product2" value="1">
+												<input class="size8 m-text18 t-center num-product" type="number" name="num-product2" value="1">
 
-													<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-														<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-													</button>
-												</div>
-											</td>
-											<td class="column-5">{{$user_id->id}}</td>
-										</tr>
-									@endif
-								@endforeach
-							@else
-								<div>Корзина пуста</div>
-							@endif
-						
-						
-						
-
+												<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+													<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+												</button>
+											</div>
+										</td>
+										<td class="column-5">{{$product->id_order_prod}}</td>
+									</tr>
+								@endif
+							@endforeach
+						@else
+							<div>Корзина пуста</div>
+						@endif
 					</table>
 				</div>
 			</div>
-
-			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
-				<div class="flex-w flex-m w-full-sm">
-					<div class="size11 bo4 m-r-10">
-						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="coupon-code" placeholder="Coupon Code">
-					</div>
-
-					<div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
-						<!-- Button -->
-						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-							Apply coupon
-						</button>
-					</div>
-				</div>
-
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-						Update Cart
+					<button onclick='pay()' class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						Proceed to checkout
 					</button>
-				</div>
-			</div>
-
-			<!-- Total -->
-			<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
-				<h5 class="m-text20 p-b-24">
-					Cart Totals
-				</h5>
-
-				<!--  -->
-				<div class="flex-w flex-sb-m p-b-12">
-					<span class="s-text18 w-size19 w-full-sm">
-						Subtotal:
-					</span>
-
-					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
-					</span>
-				</div>
-
-				<!--  -->
-				<div class="flex-w flex-sb bo10 p-t-15 p-b-20">
-					<span class="s-text18 w-size19 w-full-sm">
-						Shipping:
-					</span>
-
-					<div class="w-size20 w-full-sm">
-						<p class="s-text8 p-b-23">
-							There are no shipping methods available. Please double check your address, or contact us if you need any help.
-						</p>
-
-						<span class="s-text19">
-							Calculate Shipping
-						</span>
-
-						<div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
-							<select class="selection-2" name="country">
-								<option>Select a country...</option>
-								<option>US</option>
-								<option>UK</option>
-								<option>Japan</option>
-							</select>
-						</div>
-
-						<div class="size13 bo4 m-b-12">
-						<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country">
-						</div>
-
-						<div class="size13 bo4 m-b-22">
-							<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="Postcode / Zip">
-						</div>
-
-						<div class="size14 trans-0-4 m-b-10">
-							<!-- Button -->
-							<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-								Update Totals
-							</button>
-						</div>
+					<div id='csrf'>
+						@csrf
 					</div>
-				</div>
-
-				<!--  -->
-				<div class="flex-w flex-sb-m p-t-26 p-b-30">
-					<span class="m-text22 w-size19 w-full-sm">
-						Total:
-					</span>
-
-					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
-					</span>
-				</div>
-
-				<div class="size15 trans-0-4">
-					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-						Proceed to Checkout
-					</button>
 				</div>
 			</div>
 		</div>
 	</section>
+<section>
+<div class="container">
+		<div class='row'>
+			<div class='col-md-4'></div>
+			<div class='col-md-4'>
+				<script src='https://js.stripe.com/v2/' type='text/javascript'></script>
+				<form accept-charset="UTF-8" action="/cart/pay" class="require-validation"
+					data-cc-on-file="false"
+					data-stripe-publishable-key="pk_test_51HJeyQKd10q33ok4nnopI33pPpbMSIQ2XkaLpjxt4nlS9mGPrnw8olcckoD444dKTuSJgZ1zzLzNIYDpv9QAhaA1005S2PYg1g"
+					id="payment-form" method="POST">
+					{{ csrf_field() }}
+					<div class='form-row'>
+						<div class='col-xs-12 form-group required w-100'>
+							<label class='control-label'>Name on Card</label> <input
+								class='form-control border w-100' size='4' type='text'>
+						</div>
+					</div>
+					<div class='form-row'>
+						<div class='col-xs-12 w-100'>
+							<label class='control-label'>Card Number</label> <input
+								autocomplete='off' class='form-control card-number border' size='20'
+								type='text'>
+						</div>
+					</div>
+					<div class='form-row'>
+						<div class='col-xs-4 form-group cvc required'>
+							<label class='control-label'>CVC</label> <input
+								autocomplete='off' class='form-control card-cvc border'
+								placeholder='ex. 311' size='4' type='text'>
+						</div>
+						<div class='col-xs-4 form-group expiration required'>
+							<label class='control-label'>Expiration</label> <input
+								class='form-control card-expiry-month border' placeholder='MM' size='2'
+								type='text'>
+						</div>
+						<div class='col-xs-4 form-group expiration required d-flex align-items-end'>
+							<label class='control-label'> </label> <input
+								class='form-control card-expiry-year border' placeholder='YYYY'
+								size='4' type='text'>
+						</div>
+					</div>
+					<div class='form-row'>
+						<div class='col-md-12 form-group'>
+							<button class='form-control btn btn-primary submit-button'
+								type='submit'  style="margin-top: 10px;">Pay</button>
+						</div>
+					</div>
+					<div class='form-row'>
+						
+					</div>
+				</form>
+				@if ((Session::has('success-message')))
+				<div class="alert alert-success col-md-12">{{
+					Session::get('success-message') }}</div>
+				@endif @if ((Session::has('fail-message')))
+				@endif
+			</div>
+			<div class='col-md-4'></div>
+		</div>
+	</div>
 
+</section>
+@endsection
+
+@section('custom_js')
+<script src="js/ajax/deleteProduct.js"></script>
+<script src="js/ajax/pay.js"></script>
+<script
+		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+		crossorigin="anonymous"></script>
+	<script>
+		$(function() {
+			  $('form.require-validation').bind('submit', function(e) {
+			    var $form         = $(e.target).closest('form'),
+			        inputSelector = ['input[type=email]', 'input[type=password]',
+			                         'input[type=text]', 'input[type=file]',
+			                         'textarea'].join(', '),
+			        $inputs       = $form.find('.required').find(inputSelector),
+			        $errorMessage = $form.find('div.error'),
+			        valid         = true;
+			    $errorMessage.addClass('hide');
+			    $('.has-error').removeClass('has-error');
+			    $inputs.each(function(i, el) {
+			      var $input = $(el);
+			      if ($input.val() === '') {
+			        $input.parent().addClass('has-error');
+			        $errorMessage.removeClass('hide');
+			        e.preventDefault(); // cancel on first error
+			      }
+			    });
+			  });
+			});
+			$(function() {
+			  var $form = $("#payment-form");
+			  $form.on('submit', function(e) {
+			    if (!$form.data('cc-on-file')) {
+			      e.preventDefault();
+			      Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+			      Stripe.createToken({
+			        number: $('.card-number').val(),
+			        cvc: $('.card-cvc').val(),
+			        exp_month: $('.card-expiry-month').val(),
+			        exp_year: $('.card-expiry-year').val()
+			      }, stripeResponseHandler);
+			    }
+			  });
+			  function stripeResponseHandler(status, response) {
+			    if (response.error) {
+			      $('.error')
+			        .removeClass('hide')
+			        .find('.alert')
+			        .text(response.error.message);
+			    } else {
+			      // token contains id, last4, and card type
+			      var token = response['id'];
+			      // insert the token into the form so it gets submitted to the server
+			      $form.find('input[type=text]').empty();
+			      $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+			      $form.get(0).submit();
+			    }
+			  }
+			})
+		</script>
 @endsection

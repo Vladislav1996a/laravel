@@ -42,7 +42,7 @@ class CartController extends Controller
         }
 
         $orderDB =DB::table('orders')
-        ->orderBy('id', 'desc')
+        ->where('user_id', $userId)
         ->first();
 
         $orderId = $orderDB->id;
@@ -51,19 +51,38 @@ class CartController extends Controller
         $orderProduct->product_id = $productId;
 
         $orderProduct->order_id = $orderId;
+        $orderProduct->product_count = 1;
 
        
         $orderProduct->save();
 
-
+        return;
         
-        
+    }
 
-        //  получить user_id +
-        // найти order по user_id и по status==0+
-        // если такого order  нет то создать+
-        // поискать order_product по  order_id и product_id
-        // если такого order_product - нет то мы его создаем
+    public function cartDelete(Request $request){
+        $orderId = $request['orderId'];
+        DB::table('orders_product')->where('id_order_prod', '=', $orderId)->delete();
+    }
+
+    public function cartPay(Request $request){
+        $pay = $request->input('sum');
+        $request->session()->put('key', $pay);
+        $value = $request->session()->get("key");
+
+        \Stripe\Stripe::setApiKey ( 'sk_test_51HJeyQKd10q33ok47SkMq6MogaHhvlX4CxB5BjkdQbdkaJNKi5NCxCV6FRMTLKyyr72lZ0MHSUkfTslcOHr18r9V00Lyx7rfWX' );
+	try {
+		\Stripe\Charge::create ( array (
+				"amount" => $pay * 100,
+				"currency" => "usd",
+				"source" => $request->input ( 'stripeToken' ), // obtained with Stripe.js
+				"description" => "Test payment." 
+		) );
+		\Session::flash ( 'success-message', 'Payment done successfully !' );
+		return back()->withInput();
+	} catch ( \Exception $e ) {
+		dd($e->getMessage());
+	}
     }
 }
 
