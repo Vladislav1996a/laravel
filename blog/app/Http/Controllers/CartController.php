@@ -20,7 +20,6 @@ class CartController extends Controller
 
         $sort = Order::where('status', '0')->where('user_id', $user)->first();
       
-        
         return view('cart',[
             'orderProduct' => $orderProduct,
             'user_id'=>$sort,
@@ -31,7 +30,6 @@ class CartController extends Controller
 
         $productId = $request['productId'];
         $userId = Auth::user()->id;
-
 
         $orderTest = Order::where('status', '0')->where('user_id', $userId)->first();
         
@@ -54,7 +52,6 @@ class CartController extends Controller
 
         $orderProduct->order_id = $orderId;
         $orderProduct->product_count = 1;
-
        
         $orderProduct->save();
 
@@ -75,11 +72,13 @@ class CartController extends Controller
         ->get();
         $OrdersProd = OrdersProduct::where('order_id', $orderId)->join('products', 'products.id', '=', 'orders_product.product_id')
         ->get();
+
         $sum = 0;
 
         foreach($OrdersProd as $prod){
             $sum += $prod->price;
         }
+
         \Stripe\Stripe::setApiKey ( 'sk_test_51HJeyQKd10q33ok47SkMq6MogaHhvlX4CxB5BjkdQbdkaJNKi5NCxCV6FRMTLKyyr72lZ0MHSUkfTslcOHr18r9V00Lyx7rfWX' );
 	try {
 		\Stripe\Charge::create ( array (
@@ -93,9 +92,10 @@ class CartController extends Controller
         $status->save();
 		\Session::flash ( 'success-message', 'Payment done successfully !' );
 		return back()->withInput();
-	} catch ( \Exception $e ) {
-		dd($e->getMessage());
-	 }
+    }
+        catch ( \Exception $e ) {
+            dd($e->getMessage());
+        }
     }
 }
 

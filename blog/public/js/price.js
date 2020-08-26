@@ -9,5 +9,5 @@ function price(){
         sum = 0;
     }
     document.querySelector('#pay').innerHTML = 'Total: $' + sum;
-  } 
-  price()
+} 
+    price()

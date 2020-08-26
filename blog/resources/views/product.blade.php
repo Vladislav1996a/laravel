@@ -165,7 +165,6 @@
 								</select>
 							</div>
 						</div>
-
 						<span class="s-text8 p-t-5 p-b-5">
 							Showing 1–12 of 16 results
 						</span>
@@ -226,10 +225,8 @@
 					
 					<div class="pagination flex-m flex-w p-t-26">
 					@if($products->total()>$products->count())
-						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination"></a>
 						{{$products->links()}}
 					@endif
-						<!-- <a href="#" class="item-pagination flex-c-m trans-0-4">2</a> -->
 					</div>
 				</div>
 			</div>

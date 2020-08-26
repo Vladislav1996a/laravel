@@ -14,7 +14,7 @@ class OrderProduct extends Migration
     public function up()
     {
         Schema::create('orders_product', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_order_prod');
             $table->integer('order_id');
             $table->integer('product_id');
             $table->timestamps();

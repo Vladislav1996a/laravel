@@ -1,6 +1,7 @@
 function deleteProduct(el){
     let orderId = el.dataset.id;
     let token = el.nextElementSibling.value;
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': token
