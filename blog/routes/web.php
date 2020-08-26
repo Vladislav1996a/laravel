@@ -9,9 +9,10 @@ Route::get('/cart', 'CartController@cart', function () {
     //
 })->middleware('auth');
 
-Route::post('/cart/add', 'CartController@cartAdd', function () {
-    //
-})->middleware('auth');
+Route::get('/order', 'OrderController@order');
+
+
+Route::post('/cart/add', 'CartController@cartAdd');
 
 Route::post('/cart/delete', 'CartController@cartDelete');
 
