@@ -1,8 +1,6 @@
 function deleteProduct(el){
     let orderId = el.dataset.id;
     let token = el.nextElementSibling.value;
-    let tableRow = document.querySelector('.table-row');
-    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': token
@@ -16,11 +14,10 @@ function deleteProduct(el){
             'orderId': orderId
         },
         success: function (data) {
-           console.log(data)
+           el.parentNode.parentNode.remove();
         },
         error: function (data) {
             console.log('ошибка');
-            tableRow.remove();
         }
     })
 }

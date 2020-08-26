@@ -17,8 +17,9 @@ class CartController extends Controller
         ->join('products', 'products.id', '=', 'orders_product.product_id')
         ->get();
 
-        $sort = DB::table('orders')->where('status', '0')->where('user_id', $user)->first();
-       
+        $sort = Order::where('status', '0')->where('user_id', $user)->first();
+      
+        
         return view('cart',[
             'orderProduct' => $orderProduct,
             'user_id'=>$sort,
@@ -31,7 +32,7 @@ class CartController extends Controller
         $userId = Auth::user()->id;
 
 
-        $orderTest = DB::table('orders')->where('status', '0')->where('user_id', $userId)->first();
+        $orderTest = Order::where('status', '0')->where('user_id', $userId)->first();
         
         $order = new Order();
         $order->status = 0;
@@ -41,7 +42,7 @@ class CartController extends Controller
             $order->save();
         }
 
-        $orderDB =DB::table('orders')
+        $orderDB = Order::where('status', '0')
         ->where('user_id', $userId)
         ->first();
 
@@ -62,27 +63,38 @@ class CartController extends Controller
 
     public function cartDelete(Request $request){
         $orderId = $request['orderId'];
-        DB::table('orders_product')->where('id_order_prod', '=', $orderId)->delete();
+        OrdersProduct::where('id_order_prod', '=', $orderId)->delete();
     }
 
     public function cartPay(Request $request){
-        $pay = $request->input('sum');
-        $request->session()->put('key', $pay);
-        $value = $request->session()->get("key");
+        $user = Auth::user()->id;
+        $order = Order::where('status', '0')->where('user_id', $user)->first();
+        $orderId = $order->id;
+        $OrdersProd = OrdersProduct::join('products', 'products.id', '=', 'orders_product.product_id')
+        ->get();
+        $OrdersProd = OrdersProduct::where('order_id', $orderId)->join('products', 'products.id', '=', 'orders_product.product_id')
+        ->get();
+        $sum = 0;
 
+        foreach($OrdersProd as $prod){
+            $sum += $prod->price;
+        }
         \Stripe\Stripe::setApiKey ( 'sk_test_51HJeyQKd10q33ok47SkMq6MogaHhvlX4CxB5BjkdQbdkaJNKi5NCxCV6FRMTLKyyr72lZ0MHSUkfTslcOHr18r9V00Lyx7rfWX' );
 	try {
 		\Stripe\Charge::create ( array (
-				"amount" => $pay * 100,
+				"amount" => $sum * 100,
 				"currency" => "usd",
 				"source" => $request->input ( 'stripeToken' ), // obtained with Stripe.js
 				"description" => "Test payment." 
-		) );
+        ) );
+        $status = Order::where('status', '0')->where('user_id', $user)->first();
+        $status->status = 1;
+        $status->save();
 		\Session::flash ( 'success-message', 'Payment done successfully !' );
 		return back()->withInput();
 	} catch ( \Exception $e ) {
 		dd($e->getMessage());
-	}
+	 }
     }
 }
 

@@ -22,7 +22,6 @@
 							<th class="column-1"></th>
 							<th class="column-2">Product</th>
 							<th class="column-3">Price</th>
-							<th class="column-4 p-l-70">Quantity</th>
 						</tr>
 
 						@if(!is_null($user_id))
@@ -38,19 +37,7 @@
 										<td class="column-2">{{$product->title}}</td>
 										<td class="column-3 price">${{$product->price}}</td>
 										<td class="column-4">
-											<div class="flex-w bo5 of-hidden w-size17">
-												<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-													<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-												</button>
-
-												<input class="size8 m-text18 t-center num-product" type="number" name="num-product2" value="1">
-
-												<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-													<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-												</button>
-											</div>
-										</td>
-										<td class="column-5">{{$product->id_order_prod}}</td>
+											
 									</tr>
 								@endif
 							@endforeach
@@ -58,19 +45,16 @@
 							<div>Корзина пуста</div>
 						@endif
 					</table>
+					
 				</div>
 			</div>
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
-					<!-- Button -->
-					<button onclick='pay()' class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-						Proceed to checkout
-					</button>
-					<div id='csrf'>
-						@csrf
-					</div>
+					
 				</div>
 			</div>
 		</div>
+		<div id='pay' class='d-flex justify-content-center'></div>
+		<button class='size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4' onclick='price()'>updata price</button>
 	</section>
 <section>
 <div class="container">
@@ -116,11 +100,8 @@
 					<div class='form-row'>
 						<div class='col-md-12 form-group'>
 							<button class='form-control btn btn-primary submit-button'
-								type='submit'  style="margin-top: 10px;">Pay</button>
+								type='submit' style="margin-top: 10px;">Pay</button>
 						</div>
-					</div>
-					<div class='form-row'>
-						
 					</div>
 				</form>
 				@if ((Session::has('success-message')))
@@ -138,7 +119,7 @@
 
 @section('custom_js')
 <script src="js/ajax/deleteProduct.js"></script>
-<script src="js/ajax/pay.js"></script>
+<script src="js/price.js"></script>
 <script
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 		crossorigin="anonymous"></script>

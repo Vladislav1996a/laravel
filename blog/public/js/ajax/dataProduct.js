@@ -15,9 +15,8 @@ function dataCard(btn){
         data: {
             'productId': formData
         },
-        dataType: 'json',
         success: function (data) {
-           console.log(data)
+        //    console.log(data)
         },
         error: function (data) {
             console.log('ошибка');

@@ -9,10 +9,7 @@ class indexController extends Controller
 {
     public function dom()
     {
-        $products = Product::all();
-        return view('dom',[
-            'products' => $products
-        ]);
+        return view('dom');
     }
 
 }

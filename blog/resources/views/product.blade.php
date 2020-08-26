@@ -223,9 +223,13 @@
 					</div>
 
 					<!-- Pagination -->
+					
 					<div class="pagination flex-m flex-w p-t-26">
-						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+					@if($products->total()>$products->count())
+						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination"></a>
+						{{$products->links()}}
+					@endif
+						<!-- <a href="#" class="item-pagination flex-c-m trans-0-4">2</a> -->
 					</div>
 				</div>
 			</div>
