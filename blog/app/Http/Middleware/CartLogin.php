@@ -9,8 +9,6 @@ class CartLogin
     
     public function handle($request, Closure $next)
     {
-       if(Auth::check()){
-            return back()->withInput();
-       }
+      
     }
 }

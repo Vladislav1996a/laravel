@@ -5,12 +5,13 @@ Route::get('/', 'indexController@dom');
 
 Route::get('/product', 'ProductController@product');
 
-Route::get('/cart', 'CartController@cart');
+Route::get('/cart', 'CartController@cart', function () {
+    //
+})->middleware('auth');
 
-Route::get('/order', 'OrderController@order');
-
-
-Route::post('/cart/add', 'CartController@cartAdd');
+Route::post('/cart/add', 'CartController@cartAdd', function () {
+    //
+})->middleware('auth');
 
 Route::post('/cart/delete', 'CartController@cartDelete');
 

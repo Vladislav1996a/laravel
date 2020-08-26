@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
-    public function __construct()
-{
-    $this->middleware('auth');
-}
+  
     public function cart(){
         $user = Auth::user()->id;
 
