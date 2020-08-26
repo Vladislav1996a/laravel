@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\OrdersProduct;
+use App\Product;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,6 @@ class CartController extends Controller
   
     public function cart(){
         $user = Auth::user()->id;
-
         $orderProduct = DB::table('orders_product')
         ->join('products', 'products.id', '=', 'orders_product.product_id')
         ->get();
@@ -68,9 +68,8 @@ class CartController extends Controller
         $user = Auth::user()->id;
         $order = Order::where('status', '0')->where('user_id', $user)->first();
         $orderId = $order->id;
-        $OrdersProd = OrdersProduct::join('products', 'products.id', '=', 'orders_product.product_id')
-        ->get();
-        $OrdersProd = OrdersProduct::where('order_id', $orderId)->join('products', 'products.id', '=', 'orders_product.product_id')
+        $OrdersProd = OrdersProduct::where('order_id', $orderId)
+        ->join('products', 'products.id', '=', 'orders_product.product_id')
         ->get();
 
         $sum = 0;

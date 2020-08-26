@@ -23,14 +23,14 @@
 							<th class="column-2">Product</th>
 							<th class="column-3">Price</th>
 						</tr>
-
 						@if(!is_null($user_id))
 							@foreach($orderProduct as $product)
+							
 								@if($user_id->id == $product->order_id)
 									<tr class="table-row">
 										<td class="column-1">
 											<div class="cart-img-product b-rad-4 o-f-hidden" type='button' onclick='deleteProduct(this)' data-id='{{$product->id_order_prod}}'>
-												<img src="images/item-05.jpg" alt="IMG-PRODUCT">
+												<img src="images/item-12.jpg" alt="IMG-PRODUCT">
 											</div>
 											@csrf
 										</td>

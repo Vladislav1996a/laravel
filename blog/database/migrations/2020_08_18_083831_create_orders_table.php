@@ -28,6 +28,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('name');
+        Schema::dropIfExists('orders');
     }
 }

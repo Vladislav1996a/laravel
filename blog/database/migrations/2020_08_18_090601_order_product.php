@@ -18,6 +18,7 @@ class OrderProduct extends Migration
             $table->integer('order_id');
             $table->integer('product_id');
             $table->timestamps();
+            $table->string('product_count')->nullable(); 
         });
     }
 
@@ -28,6 +29,6 @@ class OrderProduct extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('orders_product');
     }
 }
