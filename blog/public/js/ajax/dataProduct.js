@@ -1,5 +1,4 @@
 function dataCard(btn){
-    console.log(btn.dataset.id)
     let formData = btn.dataset.id
     let token = btn.nextElementSibling.value
 
@@ -16,10 +15,10 @@ function dataCard(btn){
             'productId': formData
         },
         success: function (data) {
-        //    console.log(data)
+            swal( "added to cart !", "success");
         },
         error: function (data) {
-            console.log('ошибка');
+            swal( "not added to cart !", "error");
         }
     })
 }
