@@ -25,7 +25,6 @@
 						</tr>
 						@if(!is_null($user_id))
 							@foreach($orderProduct as $product)
-							
 								@if($user_id->id == $product->order_id)
 									<tr class="table-row">
 										<td class="column-1">
@@ -34,8 +33,8 @@
 											</div>
 											@csrf
 										</td>
-										<td class="column-2">{{$product->title}}</td>
-										<td class="column-3 price">${{$product->price}}</td>
+										<td class="column-2">{{$product->prod->title}}</td>
+										<td class="column-3 price">${{$product->prod->price}}</td>
 										<td class="column-4">
 											
 									</tr>
@@ -118,8 +117,8 @@
 @endsection
 
 @section('custom_js')
-<script src="js/ajax/deleteProduct.js"></script>
-<script src="js/price.js"></script>
+<script src="{{ URL::asset('js/ajax/deleteProduct.js') }}"></script>
+<script src="{{ URL::asset('js/price.js') }}"></script>
 <script
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 		crossorigin="anonymous"></script>

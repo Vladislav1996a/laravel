@@ -14,9 +14,7 @@ class CartController extends Controller
   
     public function cart(){
         $user = Auth::user()->id;
-        $orderProduct = DB::table('orders_product')
-        ->join('products', 'products.id', '=', 'orders_product.product_id')
-        ->get();
+        $orderProduct = OrdersProduct::with('prod')->get();
 
         $sort = Order::where('status', '0')->where('user_id', $user)->first();
       
@@ -69,16 +67,15 @@ class CartController extends Controller
         $order = Order::where('status', '0')->where('user_id', $user)->first();
         $orderId = $order->id;
         $OrdersProd = OrdersProduct::where('order_id', $orderId)
-        ->join('products', 'products.id', '=', 'orders_product.product_id')
+        ->with('prod')
         ->get();
 
         $sum = 0;
 
-        foreach($OrdersProd as $prod){
-            $sum += $prod->price;
+        foreach($OrdersProd as $product){
+            $sum += $product->prod->price;
         }
-
-        \Stripe\Stripe::setApiKey ( 'sk_test_51HJeyQKd10q33ok47SkMq6MogaHhvlX4CxB5BjkdQbdkaJNKi5NCxCV6FRMTLKyyr72lZ0MHSUkfTslcOHr18r9V00Lyx7rfWX' );
+        \Stripe\Stripe::setApiKey ( 'add keyрипмавссампи' );
 	try {
 		\Stripe\Charge::create ( array (
 				"amount" => $sum * 100,

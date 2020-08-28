@@ -91,5 +91,5 @@
 @endsection
 
 @section('custom_js')
-	<script src="js/ajax/dataProduct.js"></script>
+	<script src="{{ URL::asset('js/ajax/dataProduct.js') }}"></script>
 @endsection

@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->text('description');
             $table->timestamps();
+            $table->integer('new_price')->nullable();
         });
     }
 
